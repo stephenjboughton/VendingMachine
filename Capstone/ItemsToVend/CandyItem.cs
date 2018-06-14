@@ -8,8 +8,6 @@ namespace Capstone.ItemsToVend
 {
 	public class CandyItem : PurchasableItem
 	{
-		public string Name { get; }
-		public decimal Price { get; }
 
 		public CandyItem(string name, decimal price) : base(name, price) { }
 

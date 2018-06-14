@@ -26,7 +26,6 @@ namespace Capstone
 			this.Item = item;
 
 			this.FillSlot();
-
 		}
 
 		private void FillSlot()

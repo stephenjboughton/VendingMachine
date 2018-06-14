@@ -8,10 +8,8 @@ namespace Capstone.ItemsToVend
 {
 	public class PurchasableItem
 	{
-		string SlotNumber { get; set; }
-		string Name { get; }
-		decimal Price { get; }
-		string Type { get; set; }
+		public string Name { get; }
+		public decimal Price { get; }
 
 		public PurchasableItem(string name, decimal price)
 		{

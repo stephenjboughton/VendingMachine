@@ -9,8 +9,6 @@ namespace Capstone.ItemsToVend
 {
 	public class GumItem : PurchasableItem
 	{
-		public string Name { get; }
-		public decimal Price { get; }
 
 		public GumItem(string name, decimal price) : base(name, price) { }
 

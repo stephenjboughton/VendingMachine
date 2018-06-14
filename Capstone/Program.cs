@@ -14,9 +14,8 @@ namespace Capstone
 		{
 			string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
 			Stocker stocker = new Stocker();
-			VendingMachine vendingMachine = new VendingMachine(stocker.ReturnListOfStock(path));
-			
 
+			VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
 
 			string input = PromptUserForMenuChoice();
 
@@ -25,11 +24,11 @@ namespace Capstone
 
 				switch (input)
 				{
-					case "1": // Display current sztock
+					case "1": // Display current stock
 						DisplayStock(vendingMachine);
 						break;
 					case "2": // Make a purchase
-						Purchase();
+						Purchase(vendingMachine);
 						break;
 				}
 
@@ -40,9 +39,14 @@ namespace Capstone
 		/// <summary>
 		/// allows the user to make a purchase
 		/// </summary>
-		private static void Purchase()
+		private static void Purchase(VendingMachine vendingMachine)
 		{
-
+			string input = "";
+			foreach (var item in vendingMachine.Stock)
+			{
+				Console.WriteLine(item.Key + " " + (item.Value).Item.Name + " " + (item.Value).ItemsRemaining);
+				input = Console.ReadLine().ToUpper();
+			}
 		}
 
 		/// <summary>
@@ -50,10 +54,24 @@ namespace Capstone
 		/// </summary>
 		private static void DisplayStock(VendingMachine vendingMachine)
 		{
+
 			foreach (var item in vendingMachine.Stock)
 			{
-				Console.WriteLine(item.Key);
+
+				if (item.Value.hasStock)
+				{
+					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + " " + (item.Value).ItemsRemaining);
+				}
+				else
+				{
+					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + "> SOLD OUT");
+				}
 			}
+
+			Console.WriteLine();
+			Console.WriteLine("> Press any key to continue...");
+			Console.ReadKey();
+			Console.Clear();
 		}
 
 		/// <summary>
@@ -77,9 +95,13 @@ namespace Capstone
 				Console.WriteLine("> press Q to quit: ");
 				input = Console.ReadLine().ToUpper();
 				Console.Clear();
-				
+
 				if (input == "Q")
 				{
+					Console.WriteLine();
+					Console.WriteLine("Umbrella Corp");
+					Console.WriteLine("Our business is life itself");
+					Console.WriteLine();
 					break;
 				}
 			}
