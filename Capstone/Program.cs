@@ -28,7 +28,7 @@ namespace Capstone
 						DisplayStock(vendingMachine);
 						break;
 					case "2": // Make a purchase
-						string choice = PurchaseMenu(vendingMachine);
+						PurchaseMenu(vendingMachine);
 						break;
 				}
 
@@ -41,31 +41,7 @@ namespace Capstone
 		/// </summary>
 		private static string PurchaseMenu(VendingMachine vendingMachine)
 		{
-			string[] validchoices = { "1", "2", "3", "Q" };
-			string input = "";
-
-			do
-			{
-				Console.WriteLine("> To Feed Money, press 1: ");
-				Console.WriteLine("> To Select Product, press 2: ");
-				Console.WriteLine("> To Finish Transaction, press 3: ");
-				Console.WriteLine("> press Q to quit: ");
-				input = Console.ReadLine().ToUpper();
-				Console.Clear();
-
-				if (input == "Q")
-				{
-					Console.WriteLine();
-					Console.WriteLine("Umbrella Corp");
-					Console.WriteLine("Our business is life itself");
-					Console.WriteLine();
-					break;
-				}
-			}
-
-			while (!validchoices.Contains(input));
-
-			return input;
+			
 		}
 
 		/// <summary>
