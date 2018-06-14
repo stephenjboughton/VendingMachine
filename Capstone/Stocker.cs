@@ -12,9 +12,9 @@ namespace Capstone
 	{
 		string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
 
-		private static List<PurchasableItem> ReturnListOfStock(string path)
+		public static Dictionary<string, Slot> ReturnListOfStock(string path)
 		{
-			List<PurchasableItem> itemsToStock = new List<PurchasableItem>();
+			Dictionary<string, Slot> stock = new Dictionary<string, Slot>();
 			try
 			{
 				using (StreamReader sr = new StreamReader(path))
@@ -22,7 +22,9 @@ namespace Capstone
 					while (!sr.EndOfStream)
 					{
 						string[] line = sr.ReadLine().Split('|');
-						itemsToStock.Add(new PurchasableItem(line[1], decimal.Parse(line[2])));
+						Slot slot = new Slot(line[0], new PurchasableItem(line[1], decimal.Parse(line[2])));
+						stock.Add(line[0], slot);
+
 					}
 				}
 			}
@@ -30,7 +32,7 @@ namespace Capstone
 			{
 				Console.WriteLine(ex.Message);
 			}
-			return itemsToStock;
+			return stock;
 		}
 	}
 }
