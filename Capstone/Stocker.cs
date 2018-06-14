@@ -11,7 +11,32 @@ namespace Capstone
 	public class Stocker
 	{
 		string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
-		List<PurchasableItem> quiz = new List<PurchasableItem>();
 
+
+
+		public  static Dictionary<string, Slot> ReturnListOfStock(string path)
+		{
+			//List<PurchasableItem> itemsToStock = new List<PurchasableItem>();
+			Dictionary<string, Slot> stock = new Dictionary<string, Slot>();
+			try
+			{
+				using (StreamReader sr = new StreamReader(path))
+				{
+					while (!sr.EndOfStream)
+					{
+						string[] line = sr.ReadLine().Split('|');
+						//itemsToStock.Add(new PurchasableItem(line[1], decimal.Parse(line[2])));
+						Slot slot = new Slot(line[0], new PurchasableItem(line[1], decimal.Parse(line[2])));
+						stock.Add(line[0], slot);
+
+					}
+				}
+			}
+			catch (IOException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			return stock;
+		}
 	}
 }
