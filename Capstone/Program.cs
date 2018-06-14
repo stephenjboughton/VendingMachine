@@ -28,7 +28,7 @@ namespace Capstone
 						DisplayStock(vendingMachine);
 						break;
 					case "2": // Make a purchase
-						Purchase(vendingMachine);
+						PurchaseMenu(vendingMachine);
 						break;
 				}
 
@@ -39,14 +39,9 @@ namespace Capstone
 		/// <summary>
 		/// allows the user to make a purchase
 		/// </summary>
-		private static void Purchase(VendingMachine vendingMachine)
+		private static string PurchaseMenu(VendingMachine vendingMachine)
 		{
-			string input = "";
-			foreach (var item in vendingMachine.Stock)
-			{
-				Console.WriteLine(item.Key + " " + (item.Value).Item.Name + " " + (item.Value).ItemsRemaining);
-				input = Console.ReadLine().ToUpper();
-			}
+			
 		}
 
 		/// <summary>
