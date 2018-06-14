@@ -12,7 +12,7 @@ namespace Capstone
 	{
 		string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
 
-		public static Dictionary<string, Slot> ReturnListOfStock(string path)
+		public Dictionary<string, Slot> ReturnListOfStock(string path)
 		{
 			Dictionary<string, Slot> stock = new Dictionary<string, Slot>();
 			try

@@ -12,6 +12,11 @@ namespace Capstone
 	{
 		static void Main(string[] args)
 		{
+			string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
+			Stocker stocker = new Stocker();
+			VendingMachine vendingMachine = new VendingMachine(stocker.ReturnListOfStock(path));
+			
+
 
 			string input = PromptUserForMenuChoice();
 
@@ -20,8 +25,8 @@ namespace Capstone
 
 				switch (input)
 				{
-					case "1": // Display current stock
-						DisplayStock();
+					case "1": // Display current sztock
+						DisplayStock(vendingMachine);
 						break;
 					case "2": // Make a purchase
 						Purchase();
@@ -43,9 +48,12 @@ namespace Capstone
 		/// <summary>
 		/// allows the user to view all items in the machine
 		/// </summary>
-		private static void DisplayStock()
+		private static void DisplayStock(VendingMachine vendingMachine)
 		{
-			throw new NotImplementedException();
+			foreach (var item in vendingMachine.Stock)
+			{
+				Console.WriteLine(item.Key);
+			}
 		}
 
 		/// <summary>

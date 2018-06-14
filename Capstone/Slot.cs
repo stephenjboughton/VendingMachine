@@ -10,9 +10,9 @@ namespace Capstone
 	public class Slot
 	{
 		public Stack<PurchasableItem> slotStock = new Stack<PurchasableItem>();
-		PurchasableItem Item { get; }
-		string SlotNumber { get; }
-		int ItemsRemaining
+		public PurchasableItem Item { get; }
+		public string SlotNumber { get; }
+		public int ItemsRemaining
 		{
 			get
 			{
@@ -24,9 +24,12 @@ namespace Capstone
 		{
 			this.SlotNumber = slotNumber;
 			this.Item = item;
+
+			this.FillSlot();
+
 		}
 
-		public void FillSlot(PurchasableItem itemFromStocker)
+		private void FillSlot()
 		{
 			slotStock.Push(this.Item);
 			slotStock.Push(this.Item);
