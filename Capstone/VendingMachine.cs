@@ -14,5 +14,7 @@ namespace Capstone
 		{
 			this.Stock = fullStock;
 		}
+
+
 	}
 }
