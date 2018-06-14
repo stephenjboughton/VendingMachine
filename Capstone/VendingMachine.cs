@@ -8,8 +8,11 @@ namespace Capstone
 {
 	public class VendingMachine
 	{
-		Dictionary<string, Slot> stock = new Dictionary<string, Slot>();
+		public Dictionary<string, Slot> Stock { get; }
 
-
+		public VendingMachine(Dictionary<string, Slot> fullStock)
+		{
+			this.Stock = fullStock;
+		}
 	}
 }

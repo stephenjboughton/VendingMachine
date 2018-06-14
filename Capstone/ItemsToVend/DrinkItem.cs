@@ -11,7 +11,6 @@ namespace Capstone.ItemsToVend
 
 		public DrinkItem(string name, decimal price) : base(name, price) { }
 		
-
 		public override string ConsumeMessage()
 		{
 			string consumeMessage = "Glug Glug, Yum!";

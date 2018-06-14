@@ -10,9 +10,7 @@ namespace Capstone
 {
 	public class Stocker
 	{
-		string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
-
-		public static Dictionary<string, Slot> ReturnListOfStock(string path)
+		public Dictionary<string, Slot> ReturnStock(string path)
 		{
 			Dictionary<string, Slot> stock = new Dictionary<string, Slot>();
 			try
