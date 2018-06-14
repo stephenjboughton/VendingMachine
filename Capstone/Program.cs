@@ -28,7 +28,7 @@ namespace Capstone
 						DisplayStock(vendingMachine);
 						break;
 					case "2": // Make a purchase
-						Purchase(vendingMachine);
+						string choice = PurchaseMenu(vendingMachine);
 						break;
 				}
 
@@ -39,14 +39,33 @@ namespace Capstone
 		/// <summary>
 		/// allows the user to make a purchase
 		/// </summary>
-		private static void Purchase(VendingMachine vendingMachine)
+		private static string PurchaseMenu(VendingMachine vendingMachine)
 		{
+			string[] validchoices = { "1", "2", "3", "Q" };
 			string input = "";
-			foreach (var item in vendingMachine.Stock)
+
+			do
 			{
-				Console.WriteLine(item.Key + " " + (item.Value).Item.Name + " " + (item.Value).ItemsRemaining);
+				Console.WriteLine("> To Feed Money, press 1: ");
+				Console.WriteLine("> To Select Product, press 2: ");
+				Console.WriteLine("> To Finish Transaction, press 3: ");
+				Console.WriteLine("> press Q to quit: ");
 				input = Console.ReadLine().ToUpper();
+				Console.Clear();
+
+				if (input == "Q")
+				{
+					Console.WriteLine();
+					Console.WriteLine("Umbrella Corp");
+					Console.WriteLine("Our business is life itself");
+					Console.WriteLine();
+					break;
+				}
 			}
+
+			while (!validchoices.Contains(input));
+
+			return input;
 		}
 
 		/// <summary>
