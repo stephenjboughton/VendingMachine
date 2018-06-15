@@ -29,10 +29,13 @@ namespace Capstone
 
 		public int[] MakeChange(decimal Balance)
 		{
-			int[] change = new int[3];
+			int changeQ = (int)(this.Balance / .25M);
+			this.Balance = this.Balance % .25M;
+			int changeD = (int)(this.Balance / .10M);
+			this.Balance = this.Balance % .10M;
+			int changeN = (int)(this.Balance / .05M);
 
-			// determine number of each of quarter, dimes nickels to give back in change, 
-			// populate array with those numbers
+			int[] change =  new int[] { changeQ, changeD, changeN };
 
 			return change;
 		}
