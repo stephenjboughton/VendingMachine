@@ -1,25 +1,46 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Capstone;
-using Capstone.ItemsToVend;
 using System.IO;
 
 namespace Capstone.Tests
 {
-    [TestClass]
-    public class UnitTest1
-    {
-		[TestMethod]
-		public void Check_To_See_If_Change_Return_Works()
+	[TestClass]
+	public class UnitTest1
+	{
+		[TestClass]
+		public class FeedMoneyTests
 		{
-			string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
-			Stocker stocker = new Stocker();
-			VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
-			vendingMachine.Balance = 6.35M;
+			[DataTestMethod]
+			[DataRow(1.00, 1.00)]
+			[DataRow(2.00, 2.00)]
+			[DataRow(5.00, 5.00)]
+			[DataRow(10.00, 10.00)]
+			public void CheckToSeeIfFeedMoneyProducesCorrectBalance(double money, double expectedBalance)
+			{
+				string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
+				Stocker stocker = new Stocker();
+				VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
 
-			int[] change = vendingMachine.MakeChange(vendingMachine.Balance);
+				vendingMachine.FeedMoney((decimal)money);
+				double balance = (double)vendingMachine.Balance;
 
-			CollectionAssert.AreEqual(new int [] { 25, 1, 0 }, change);
+				Assert.AreEqual(expectedBalance, balance);
+			}
+
+			[TestMethod]
+			public void CheckToSeeIfMultipleFeedMonCallsProducesCorrectBalance()
+			{
+				string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
+				Stocker stocker = new Stocker();
+				VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
+
+				vendingMachine.FeedMoney(5.00M);
+				vendingMachine.FeedMoney(2.00M);
+				vendingMachine.FeedMoney(10.00M);
+				decimal balance = vendingMachine.Balance;
+
+				Assert.AreEqual(17.00M, balance);
+			}
 		}
 	}
 }

@@ -13,6 +13,18 @@ namespace Capstone
 		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
 		public decimal Balance { get; set; }
 
+		private Dictionary<string, decimal> SalesReport
+		{
+			get
+			{
+				foreach (var item in Stock)
+				{
+					this.SalesReport[item.Value.Item.Name] = 0.00M;
+				}
+				return SalesReport;
+			}
+		}
+
 		public VendingMachine(Dictionary<string, Slot> fullStock)
 		{
 			this.Stock = fullStock;
@@ -21,15 +33,23 @@ namespace Capstone
 		public void FeedMoney(decimal moneyFed)
 		{
 			this.Balance += moneyFed;
+			LogFile logFile = new LogFile();
+			string message = logFile.LogFeedMoney(moneyFed, this.Balance);
+			logFile.LoggingInfo(message);
 		}
 
 		public void DispenseItem(string item)
 		{
 			this.PurchasedStock.Enqueue(this.Stock[item].slotStock.Pop());
+			this.Balance -= this.Stock[item].Item.Price;
+			LogFile logFile = new LogFile();
+			string message = logFile.LogPurchase(Stock[item].Item.Name, item, Stock[item].Item.Price, this.Balance);
+			logFile.LoggingInfo(message);
 		}
 
 		public int[] MakeChange(decimal Balance)
 		{
+			decimal startingBalance = this.Balance;
 			int changeQ = (int)(this.Balance / .25M);
 			this.Balance = this.Balance % .25M;
 			int changeD = (int)(this.Balance / .10M);
@@ -37,6 +57,10 @@ namespace Capstone
 			int changeN = (int)(this.Balance / .05M);
 
 			int[] change =  new int[] { changeQ, changeD, changeN };
+
+			LogFile logFile = new LogFile();
+			string message = logFile.LogGiveChange(startingBalance, this.Balance);
+			logFile.LoggingInfo(message);
 
 			return change;
 		} 

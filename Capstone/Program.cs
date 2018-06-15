@@ -31,6 +31,10 @@ namespace Capstone
 						TransactionMenu menu = new TransactionMenu();
 						menu.PurchaseMenu(vendingMachine);
 						break;
+					case "3": //check the sales log
+						LogFile logFile = new LogFile();
+						
+						break;
 				}
 
 				input = PromptUserForMenuChoice();
@@ -43,7 +47,7 @@ namespace Capstone
 		private static void DisplayStock(VendingMachine vendingMachine)
 		{
 			Console.WriteLine("-----TE Vending Machine-----");
-			Console.WriteLine(" Powered by Umbrella Corp");
+			Console.WriteLine("  Powered by Umbrella Corp");
 			Console.WriteLine();
 			foreach (var item in vendingMachine.Stock)
 			{
@@ -82,6 +86,7 @@ namespace Capstone
 				Console.WriteLine();
 				Console.WriteLine("> Display Vending Machine Items, press 1: ");
 				Console.WriteLine("> Make a Purchase, press 2: ");
+				Console.WriteLine("> Check sales log, press 3: ");
 				Console.WriteLine("> press Q to quit: ");
 				input = Console.ReadLine().ToUpper();
 				Console.Clear();
@@ -89,7 +94,7 @@ namespace Capstone
 				if (input == "Q")
 				{
 					Console.WriteLine();
-					Console.WriteLine("Umbrella Corp");
+					Console.WriteLine("     Umbrella Corp");
 					Console.WriteLine("Our business is life itself");
 					Console.WriteLine();
 					break;

@@ -14,7 +14,7 @@ namespace Capstone
 			while (true)
 			{
 				Console.WriteLine("-----TE Vending Machine-----");
-				Console.WriteLine(" Powered by Umbrella Corp");
+				Console.WriteLine("  Powered by Umbrella Corp");
 				Console.WriteLine();
 				Console.WriteLine("> To Feed Money, press 1: ");
 				Console.WriteLine("> To Select Product, press 2: ");
@@ -46,7 +46,7 @@ namespace Capstone
 				{
 					Console.Clear();
 					Console.WriteLine("-----TE Vending Machine-----");
-					Console.WriteLine(" Powered by Umbrella Corp");
+					Console.WriteLine("  Powered by Umbrella Corp");
 					Console.WriteLine();
 					DisplayStock(vendingMachine);
 					Console.Write("> What product would you like to purchase? ");
@@ -78,7 +78,6 @@ namespace Capstone
 							Console.WriteLine("Your product is now being dispensed. Thank you!");
 							Console.WriteLine();
 							vendingMachine.DispenseItem(productSelection);
-							vendingMachine.Balance -= vendingMachine.Stock[productSelection].Item.Price;
 							break;
 						}
 					}
@@ -92,6 +91,7 @@ namespace Capstone
 					Console.WriteLine($"{change[0]} quarters, " +
 						$"{change[1]} dimes, " +
 						$"and {change[2]} nickels.");
+					Console.WriteLine();
 					while (vendingMachine.PurchasedStock.Count > 0)
 					{
 						PurchasableItem item = vendingMachine.PurchasedStock.Dequeue();
@@ -101,6 +101,7 @@ namespace Capstone
 					//{
 					//	Console.WriteLine(item.ConsumeMessage());
 					//}
+					Console.WriteLine();
 					Console.WriteLine("> Press any key to continue...");
 					Console.ReadKey();
 					Console.Clear();
