@@ -37,14 +37,6 @@ namespace Capstone
 			}
 		}
 
-		///// <summary>
-		///// allows the user to make a purchase
-		///// </summary>
-		//private static string PurchaseMenu(VendingMachine vendingMachine)
-		//{
-			
-		//}
-
 		/// <summary>
 		/// allows the user to view all items in the machine
 		/// </summary>
@@ -56,10 +48,12 @@ namespace Capstone
 
 				if (item.Value.hasStock)
 				{
+					Console.WriteLine();
 					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + " " + (item.Value).ItemsRemaining);
 				}
 				else
 				{
+					Console.WriteLine();
 					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + "> SOLD OUT");
 				}
 			}

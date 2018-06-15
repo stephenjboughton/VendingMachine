@@ -61,10 +61,19 @@ namespace Capstone
 						}
 					}
 				}
+
+				if (input == "3")
+				{
+					Console.Clear();
+					Console.WriteLine();
+					Console.WriteLine($"> Your change is... ");
+					Console.WriteLine(vendingMachine.MakeChange(vendingMachine.);
+					Console.WriteLine("> Press any key to continue...");
+					Console.ReadKey();
+					Console.Clear();
+					break;
+				}
 			}
-
 		}
-
-
 	}
 }
