@@ -20,7 +20,7 @@ namespace Capstone
 			}
 		}
 
-		public Slot(string slotNumber, PurchasableItem item)
+		public Slot(string slotNumber, PurchasableItem item) 
 		{
 			this.SlotNumber = slotNumber;
 			this.Item = item;

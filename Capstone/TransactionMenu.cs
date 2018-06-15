@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Capstone.ItemsToVend;
 
 namespace Capstone
 {
@@ -12,6 +13,9 @@ namespace Capstone
 		{
 			while (true)
 			{
+				Console.WriteLine("-----TE Vending Machine-----");
+				Console.WriteLine(" Powered by Umbrella Corp");
+				Console.WriteLine();
 				Console.WriteLine("> To Feed Money, press 1: ");
 				Console.WriteLine("> To Select Product, press 2: ");
 				Console.WriteLine("> To Finish Transaction, press 3: ");
@@ -30,6 +34,7 @@ namespace Capstone
 					if (validAmount.Contains(moneyFed))
 					{
 						vendingMachine.FeedMoney(moneyFed);
+						Console.Clear();
 					}
 					else
 					{
@@ -39,9 +44,13 @@ namespace Capstone
 				}
 				else if (input == "2")
 				{
+					Console.Clear();
+					Console.WriteLine("-----TE Vending Machine-----");
+					Console.WriteLine(" Powered by Umbrella Corp");
+					Console.WriteLine();
 					DisplayStock(vendingMachine);
 					Console.Write("> What product would you like to purchase? ");
-					string productSelection = Console.ReadLine();
+					string productSelection = Console.ReadLine().ToUpper();
 
 					while (true)
 					{
@@ -65,7 +74,9 @@ namespace Capstone
 						}
 						else
 						{
+							Console.WriteLine();
 							Console.WriteLine("Your product is now being dispensed. Thank you!");
+							Console.WriteLine();
 							vendingMachine.DispenseItem(productSelection);
 							vendingMachine.Balance -= vendingMachine.Stock[productSelection].Item.Price;
 							break;
@@ -77,10 +88,19 @@ namespace Capstone
 					Console.Clear();
 					Console.WriteLine();
 					Console.WriteLine($"> Your change is... ");
-					Console.WriteLine($"{vendingMachine.MakeChange(vendingMachine.Balance)[0]} quarters, " +
-						$"{vendingMachine.MakeChange(vendingMachine.Balance)[1]} dimes, " +
-						$"and {vendingMachine.MakeChange(vendingMachine.Balance)[2]} nickels.");
-
+					int[] change = vendingMachine.MakeChange(vendingMachine.Balance);
+					Console.WriteLine($"{change[0]} quarters, " +
+						$"{change[1]} dimes, " +
+						$"and {change[2]} nickels.");
+					while (vendingMachine.PurchasedStock.Count > 0)
+					{
+						PurchasableItem item = vendingMachine.PurchasedStock.Dequeue();
+						Console.WriteLine(item.ConsumeMessage());
+					}
+					//foreach (PurchasableItem item in vendingMachine.PurchasedStock)
+					//{
+					//	Console.WriteLine(item.ConsumeMessage());
+					//}
 					Console.WriteLine("> Press any key to continue...");
 					Console.ReadKey();
 					Console.Clear();
@@ -97,7 +117,7 @@ namespace Capstone
 
 				if (item.Value.hasStock)
 				{
-					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + " " + (item.Value).ItemsRemaining);
+					Console.WriteLine(item.Key.PadRight(10) + " " + (item.Value).Item.Name.PadRight(20) + " " + (item.Value).Item.Price);
 				}
 				else
 				{

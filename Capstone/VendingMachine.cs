@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Capstone.ItemsToVend;
 
 namespace Capstone
 {
 	public class VendingMachine
 	{
 		public Dictionary<string, Slot> Stock { get; }
-
+		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
 		public decimal Balance { get; set; }
 
 		public VendingMachine(Dictionary<string, Slot> fullStock)
@@ -24,7 +25,7 @@ namespace Capstone
 
 		public void DispenseItem(string item)
 		{
-			this.Stock[item].slotStock.Pop();
+			this.PurchasedStock.Enqueue(this.Stock[item].slotStock.Pop());
 		}
 
 		public int[] MakeChange(decimal Balance)
@@ -38,6 +39,6 @@ namespace Capstone
 			int[] change =  new int[] { changeQ, changeD, changeN };
 
 			return change;
-		}
+		} 
 	}
 }

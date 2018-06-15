@@ -20,9 +20,26 @@ namespace Capstone
 					while (!sr.EndOfStream)
 					{
 						string[] line = sr.ReadLine().Split('|');
-						Slot slot = new Slot(line[0], new PurchasableItem(line[1], decimal.Parse(line[2])));
-						stock.Add(line[0], slot);
-
+						if (line[3] == "Chip")
+						{
+							Slot slot = new Slot(line[0], new ChipItem(line[1], decimal.Parse(line[2])));
+							stock.Add(line[0], slot);
+						}
+						else if (line[3] == "Candy")
+						{
+							Slot slot = new Slot(line[0], new CandyItem(line[1], decimal.Parse(line[2])));
+							stock.Add(line[0], slot);
+						}
+						else if (line[3] == "Drink")
+						{
+							Slot slot = new Slot(line[0], new DrinkItem(line[1], decimal.Parse(line[2])));
+							stock.Add(line[0], slot);
+						}
+						else
+						{
+							Slot slot = new Slot(line[0], new GumItem(line[1], decimal.Parse(line[2])));
+							stock.Add(line[0], slot);
+						}
 					}
 				}
 			}
