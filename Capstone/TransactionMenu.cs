@@ -24,11 +24,22 @@ namespace Capstone
 				{
 					Console.Write("> How much money would you like to insert, $1, $2, $5, or $10? ");
 					decimal moneyFed = decimal.Parse(Console.ReadLine());
-					vendingMachine.FeedMoney(moneyFed);
-					Console.Clear();
+
+					decimal[] validAmount = new decimal[4] { 1M, 2M, 5M, 10M };
+
+					if (validAmount.Contains(moneyFed))
+					{
+						vendingMachine.FeedMoney(moneyFed);
+					}
+					else
+					{
+						Console.WriteLine("That is not a valid amount to deposit. Please try again.");
+						Console.WriteLine();
+					}
 				}
 				else if (input == "2")
 				{
+					DisplayStock(vendingMachine);
 					Console.Write("> What product would you like to purchase? ");
 					string productSelection = Console.ReadLine();
 
@@ -61,10 +72,41 @@ namespace Capstone
 						}
 					}
 				}
+				else if (input == "3")
+				{
+					Console.Clear();
+					Console.WriteLine();
+					Console.WriteLine($"> Your change is... ");
+					Console.WriteLine($"{vendingMachine.MakeChange(vendingMachine.Balance)[0]} quarters, " +
+						$"{vendingMachine.MakeChange(vendingMachine.Balance)[1]} dimes, " +
+						$"and {vendingMachine.MakeChange(vendingMachine.Balance)[2]} nickels.");
+
+					Console.WriteLine("> Press any key to continue...");
+					Console.ReadKey();
+					Console.Clear();
+					break;
+				}
 			}
 
 		}
+		private static void DisplayStock(VendingMachine vendingMachine)
+		{
 
+			foreach (var item in vendingMachine.Stock)
+			{
+
+				if (item.Value.hasStock)
+				{
+					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + " " + (item.Value).ItemsRemaining);
+				}
+				else
+				{
+					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + "> SOLD OUT");
+				}
+			}
+
+			Console.WriteLine();
+		}
 
 	}
 }

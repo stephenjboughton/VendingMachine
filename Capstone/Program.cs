@@ -37,14 +37,6 @@ namespace Capstone
 			}
 		}
 
-		///// <summary>
-		///// allows the user to make a purchase
-		///// </summary>
-		//private static string PurchaseMenu(VendingMachine vendingMachine)
-		//{
-			
-		//}
-
 		/// <summary>
 		/// allows the user to view all items in the machine
 		/// </summary>
