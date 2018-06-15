@@ -21,7 +21,6 @@ namespace Capstone
 
 			while (input != "Q")
 			{
-
 				switch (input)
 				{
 					case "1": // Display current stock
@@ -32,7 +31,6 @@ namespace Capstone
 						menu.PurchaseMenu(vendingMachine);
 						break;
 				}
-
 				input = PromptUserForMenuChoice();
 			}
 		}
@@ -89,7 +87,7 @@ namespace Capstone
 				if (input == "Q")
 				{
 					Console.WriteLine();
-					Console.WriteLine("Umbrella Corp");
+					Console.WriteLine("     Umbrella Corp");
 					Console.WriteLine("Our business is life itself");
 					Console.WriteLine();
 					break;

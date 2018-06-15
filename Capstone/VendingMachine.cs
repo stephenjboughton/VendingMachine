@@ -12,6 +12,17 @@ namespace Capstone
 		public Dictionary<string, Slot> Stock { get; }
 		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
 		public decimal Balance { get; set; }
+		private Dictionary<string, decimal> SalesReport
+		{
+			get
+			{
+				foreach (var item in Stock)
+				{
+					this.SalesReport[item.Value.Item.Name] = 0.00M;
+				}
+				return SalesReport;
+			}
+		}
 
 		public VendingMachine(Dictionary<string, Slot> fullStock)
 		{
@@ -26,6 +37,8 @@ namespace Capstone
 		public void DispenseItem(string item)
 		{
 			this.PurchasedStock.Enqueue(this.Stock[item].slotStock.Pop());
+			this.Balance -= this.Stock[item].Item.Price;
+		//	this.SalesReport[item] += Stock[item].Item.Price;
 		}
 
 		public int[] MakeChange(decimal Balance)

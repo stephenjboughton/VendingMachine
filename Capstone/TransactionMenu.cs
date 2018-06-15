@@ -78,7 +78,6 @@ namespace Capstone
 							Console.WriteLine("Your product is now being dispensed. Thank you!");
 							Console.WriteLine();
 							vendingMachine.DispenseItem(productSelection);
-							vendingMachine.Balance -= vendingMachine.Stock[productSelection].Item.Price;
 							break;
 						}
 					}
