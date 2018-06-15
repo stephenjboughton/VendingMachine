@@ -48,10 +48,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChangeReturnTests.cs" />
+    <Compile Include="MakeChangeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FeedMoneyTests.cs" />
-    <Compile Include="DispenseItemTest.cs" />
+    <Compile Include="DispenseItemTests.cs" />
+    <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -61,9 +61,6 @@
       <Project>{a036d199-78cc-42ae-b8fb-cb3c50f5b6e7}</Project>
       <Name>Capstone</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="vendingmachine.txt" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
