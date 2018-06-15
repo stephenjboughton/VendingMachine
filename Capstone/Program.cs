@@ -42,14 +42,16 @@ namespace Capstone
 		/// </summary>
 		private static void DisplayStock(VendingMachine vendingMachine)
 		{
+			Console.WriteLine("-----TE Vending Machine-----");
+			Console.WriteLine("  Powered by Umbrella Corp");
+			Console.WriteLine();
 
 			foreach (var item in vendingMachine.Stock)
 			{
 
 				if (item.Value.hasStock)
 				{
-					Console.WriteLine();
-					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + " " + (item.Value).ItemsRemaining);
+					Console.WriteLine(item.Key.PadRight(10) + " " + (item.Value).Item.Name.PadRight(20) + " " + (item.Value).ItemsRemaining);
 				}
 				else
 				{
@@ -89,7 +91,8 @@ namespace Capstone
 				if (input == "Q")
 				{
 					Console.WriteLine();
-					Console.WriteLine("Umbrella Corp");
+					Console.WriteLine("      Umbrella Corp");
+					Console.WriteLine();
 					Console.WriteLine("Our business is life itself");
 					Console.WriteLine();
 					break;

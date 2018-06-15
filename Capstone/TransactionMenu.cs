@@ -10,8 +10,13 @@ namespace Capstone
 	{
 		public void PurchaseMenu(VendingMachine vendingMachine)
 		{
+			
+
 			while (true)
 			{
+				Console.WriteLine("-----TE Vending Machine-----");
+				Console.WriteLine("  Powered by Umbrella Corp");
+				Console.WriteLine();
 				Console.WriteLine("> To Feed Money, press 1: ");
 				Console.WriteLine("> To Select Product, press 2: ");
 				Console.WriteLine("> To Finish Transaction, press 3: ");
@@ -30,6 +35,7 @@ namespace Capstone
 					if (validAmount.Contains(moneyFed))
 					{
 						vendingMachine.FeedMoney(moneyFed);
+						Console.Clear();
 					}
 					else
 					{
@@ -39,9 +45,13 @@ namespace Capstone
 				}
 				else if (input == "2")
 				{
+					Console.Clear();
+					Console.WriteLine("-----TE Vending Machine-----");
+					Console.WriteLine("  Powered by Umbrella Corp");
+					Console.WriteLine();
 					DisplayStock(vendingMachine);
 					Console.Write("> What product would you like to purchase? ");
-					string productSelection = Console.ReadLine();
+					string productSelection = Console.ReadLine().ToUpper();
 
 					while (true)
 					{
@@ -65,7 +75,9 @@ namespace Capstone
 						}
 						else
 						{
+							Console.WriteLine();
 							Console.WriteLine("Your product is now being dispensed. Thank you!");
+							Console.WriteLine();
 							vendingMachine.DispenseItem(productSelection);
 							vendingMachine.Balance -= vendingMachine.Stock[productSelection].Item.Price;
 							break;
@@ -91,13 +103,13 @@ namespace Capstone
 		}
 		private static void DisplayStock(VendingMachine vendingMachine)
 		{
-
+			Console.WriteLine();
 			foreach (var item in vendingMachine.Stock)
 			{
 
 				if (item.Value.hasStock)
 				{
-					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + " " + (item.Value).ItemsRemaining);
+					Console.WriteLine(item.Key.PadRight(10) + " " + (item.Value).Item.Name.PadRight(20) + " " + (item.Value).Item.Price);
 				}
 				else
 				{
