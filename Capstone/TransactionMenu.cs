@@ -125,7 +125,7 @@ namespace Capstone
 				}
 				else
 				{
-					Console.WriteLine(item.SlotNumber + " " + (item.Item.Name) + "> SOLD OUT");
+					Console.WriteLine(item.SlotNumber.PadRight(10) + " " + (item.Item.Name).PadRight(20) + "> SOLD OUT");
 				}
 			}
 

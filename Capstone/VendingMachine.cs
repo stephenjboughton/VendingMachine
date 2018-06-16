@@ -75,7 +75,7 @@ namespace Capstone
 
 		public bool ProductInStock(string productSelection)
 		{
-			return this.Stock.ContainsKey(productSelection);
+			return this.Stock[productSelection].hasStock;
 		}
 
 		public bool HasRequiredBalance(string productSelection)
