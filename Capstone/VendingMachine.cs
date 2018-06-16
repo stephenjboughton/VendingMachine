@@ -9,21 +9,33 @@ namespace Capstone
 {
 	public class VendingMachine
 	{
-		public Dictionary<string, Slot> Stock { get; }
-		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
-		public decimal Balance { get; set; }
-
-		private Dictionary<string, decimal> SalesReport
+		private Dictionary<string, Slot> Stock { get; }
+		public Slot[] itemSlot
 		{
 			get
 			{
-				foreach (var item in Stock)
+				foreach(var item in Stock)
 				{
-					this.SalesReport[item.Value.Item.Name] = 0.00M;
+					return Stock.Values.ToArray();
 				}
-				return SalesReport;
+				return itemSlot;
 			}
 		}
+		
+		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
+		public decimal Balance { get; set; }
+
+		//private Dictionary<string, decimal> SalesReport
+		//{
+		//	get
+		//	{
+		//		foreach (var item in Stock)
+		//		{
+		//			this.SalesReport[item.Value.Item.Name] = 0.00M;
+		//		}
+		//		return SalesReport;
+		//	}
+		//}
 
 		public VendingMachine(Dictionary<string, Slot> fullStock)
 		{
@@ -63,6 +75,21 @@ namespace Capstone
 			logFile.LoggingInfo(message);
 
 			return change;
-		} 
+		}
+
+		public bool ValidProductSelection(string productSelection)
+		{
+			return this.Stock.ContainsKey(productSelection);
+		}
+
+		public bool ProductInStock(string productSelection)
+		{
+			return this.Stock.ContainsKey(productSelection);
+		}
+
+		public bool HasRequiredBalance(string productSelection)
+		{
+			return (this.Stock[productSelection].Item.Price < this.Balance);
+		}
 	}
 }

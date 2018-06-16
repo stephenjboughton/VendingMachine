@@ -47,16 +47,16 @@ namespace Capstone
 			Console.WriteLine("-----TE Vending Machine-----");
 			Console.WriteLine("  Powered by Umbrella Corp");
 			Console.WriteLine();
-			foreach (var item in vendingMachine.Stock)
+			foreach (var item in vendingMachine.itemSlot)
 			{
 
-				if (item.Value.hasStock)
+				if (item.hasStock)
 				{
-					Console.WriteLine(item.Key.PadRight(10) + " " + (item.Value).Item.Name.PadRight(20) + " " + (item.Value).ItemsRemaining);
+					Console.WriteLine(item.SlotNumber.PadRight(10) + " " + (item.Item.Name).PadRight(20) + " " + (item.ItemsRemaining));
 				}
 				else
 				{
-					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + "> SOLD OUT");
+					Console.WriteLine(item.SlotNumber + " " + (item.Item.Name) + "> SOLD OUT");
 				}
 			}
 
