@@ -13,7 +13,10 @@ namespace Capstone
 		static void Main(string[] args)
 		{
 			string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
+
 			Stocker stocker = new Stocker();
+
+			LogFile logFile = new LogFile();
 
 			VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
 
@@ -32,12 +35,52 @@ namespace Capstone
 						menu.PurchaseMenu(vendingMachine);
 						break;
 					case "3": //check the sales log
-						LogFile logFile = new LogFile();
-						
+						DisplayLogFile(logFile);
 						break;
 				}
 
 				input = PromptUserForMenuChoice();
+			}
+		}
+
+		/// <summary>
+		/// Writes the log file to the console after user has entered correct password.
+		/// </summary>
+		/// <param name="logFile"></param>
+		private static void DisplayLogFile(LogFile logFile)
+		{
+			Console.Beep();
+			Console.Beep();
+			string input = "";
+
+			Console.WriteLine("-----TE Vending Machine-----");
+			Console.WriteLine("  Powered by Umbrella Corp");
+			Console.WriteLine();
+			Console.WriteLine("       MANAGERS ONLY");
+			Console.WriteLine();
+			Console.Write("> Please enter password: ");
+			input = Console.ReadLine();
+
+			if (input == "CLENET8")
+			{
+
+				Console.WriteLine();
+				Console.WriteLine(logFile.ConsoleLog());
+				Console.WriteLine();
+				// this is where the sales report will be displayed to the console
+				Console.WriteLine("> Press any key to continue...");
+				Console.ReadKey();
+				Console.Clear();
+			}
+
+			else if (input != "CLENET8")
+			{
+				Console.WriteLine();
+				Console.WriteLine("> WRONG PASSWORD");
+				Console.WriteLine();
+				Console.WriteLine("> Press any key to continue...");
+				Console.ReadKey();
+				Console.Clear();
 			}
 		}
 
@@ -49,16 +92,17 @@ namespace Capstone
 			Console.WriteLine("-----TE Vending Machine-----");
 			Console.WriteLine("  Powered by Umbrella Corp");
 			Console.WriteLine();
-			foreach (var item in vendingMachine.Stock)
+
+			foreach (var item in vendingMachine.itemSlot)
 			{
 
-				if (item.Value.hasStock)
+				if (item.hasStock)
 				{
-					Console.WriteLine(item.Key.PadRight(10) + " " + (item.Value).Item.Name.PadRight(20) + " " + (item.Value).ItemsRemaining);
+					Console.WriteLine(item.SlotNumber.PadRight(10) + " " + (item.Item.Name).PadRight(20) + " " + (item.ItemsRemaining));
 				}
 				else
 				{
-					Console.WriteLine(item.Key + " " + (item.Value).Item.Name + "> SOLD OUT");
+					Console.WriteLine(item.SlotNumber + " " + (item.Item.Name) + "> SOLD OUT");
 				}
 			}
 
@@ -75,7 +119,7 @@ namespace Capstone
 		private static string PromptUserForMenuChoice()
 		{
 
-			string[] validchoices = { "1", "2", "Q" };
+			string[] validchoices = { "1", "2", "3", "Q" };
 			string input = "";
 
 			do
@@ -86,7 +130,7 @@ namespace Capstone
 				Console.WriteLine();
 				Console.WriteLine("> Display Vending Machine Items, press 1: ");
 				Console.WriteLine("> Make a Purchase, press 2: ");
-				Console.WriteLine("> Check sales log, press 3: ");
+				Console.WriteLine();
 				Console.WriteLine("> press Q to quit: ");
 				input = Console.ReadLine().ToUpper();
 				Console.Clear();

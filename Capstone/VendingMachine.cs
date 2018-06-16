@@ -10,17 +10,31 @@ namespace Capstone
 	public class VendingMachine
 	{
 		public Dictionary<string, Slot> Stock { get; }
-		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
-		public decimal Balance { get; set; }
-
-		private Dictionary<string, decimal> SalesReport
+		public Slot[] itemSlot
 		{
 			get
 			{
 				foreach (var item in Stock)
 				{
-					this.SalesReport[item.Value.Item.Name] = 0.00M;
+					return Stock.Values.ToArray();
 				}
+				return itemSlot;
+			}
+		}
+		
+
+		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
+		public decimal Balance { get; set; }
+
+		private Dictionary<string, int> SalesReport
+		{
+			get
+			{
+				foreach (var item in Stock)
+				{
+					this.SalesReport[item.Value.Item.Name] = 0;
+				}
+
 				return SalesReport;
 			}
 		}
@@ -63,6 +77,21 @@ namespace Capstone
 			logFile.LoggingInfo(message);
 
 			return change;
-		} 
+		}
+
+		public bool ValidProductSelection(string productSelection)
+		{
+			return this.Stock.ContainsKey(productSelection);
+		}
+
+		public bool ProductInStock(string productSelection)
+		{
+			return this.Stock.ContainsKey(productSelection);
+		}
+
+		public bool HasRequiredBalance(string productSelection)
+		{
+			return (this.Stock[productSelection].Item.Price < this.Balance);
+		}
 	}
 }
