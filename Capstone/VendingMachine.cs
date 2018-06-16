@@ -9,12 +9,12 @@ namespace Capstone
 {
 	public class VendingMachine
 	{
-		private Dictionary<string, Slot> Stock { get; }
+		public Dictionary<string, Slot> Stock { get; }
 		public Slot[] itemSlot
 		{
 			get
 			{
-				foreach(var item in Stock)
+				foreach (var item in Stock)
 				{
 					return Stock.Values.ToArray();
 				}
@@ -22,20 +22,22 @@ namespace Capstone
 			}
 		}
 		
+
 		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
 		public decimal Balance { get; set; }
 
-		//private Dictionary<string, decimal> SalesReport
-		//{
-		//	get
-		//	{
-		//		foreach (var item in Stock)
-		//		{
-		//			this.SalesReport[item.Value.Item.Name] = 0.00M;
-		//		}
-		//		return SalesReport;
-		//	}
-		//}
+		private Dictionary<string, int> SalesReport
+		{
+			get
+			{
+				foreach (var item in Stock)
+				{
+					this.SalesReport[item.Value.Item.Name] = 0;
+				}
+
+				return SalesReport;
+			}
+		}
 
 		public VendingMachine(Dictionary<string, Slot> fullStock)
 		{

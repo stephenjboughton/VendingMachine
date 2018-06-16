@@ -50,6 +50,9 @@ namespace Capstone
 					Console.WriteLine();
 					DisplayStock(vendingMachine);
 					Console.Write("> What product would you like to purchase? ");
+					Console.WriteLine();
+					Console.WriteLine();
+					Console.WriteLine($"> Current Money Provided {vendingMachine.Balance:C}");
 					string productSelection = Console.ReadLine().ToUpper();
 
 					while (true)
@@ -62,13 +65,13 @@ namespace Capstone
 						}
 						else if (!vendingMachine.ProductInStock(productSelection))
 						{
-							Console.WriteLine("This product is currently out of stock.  Please select a different product.");
+							Console.WriteLine("This product is currently out of stock. Please select a different product.");
 							Console.WriteLine();
 							break;
 						}
 						else if (!vendingMachine.HasRequiredBalance(productSelection))
 						{
-							Console.WriteLine("You have not inserted enough money to buy this product.  Please insert more money or select a different item!");
+							Console.WriteLine("You have not inserted enough money to buy this product. Please insert more money or select a different item!");
 							Console.WriteLine();
 							break;
 						}
@@ -97,10 +100,7 @@ namespace Capstone
 						PurchasableItem item = vendingMachine.PurchasedStock.Dequeue();
 						Console.WriteLine(item.ConsumeMessage());
 					}
-					//foreach (PurchasableItem item in vendingMachine.PurchasedStock)
-					//{
-					//	Console.WriteLine(item.ConsumeMessage());
-					//}
+
 					Console.WriteLine();
 					Console.WriteLine("> Press any key to continue...");
 					Console.ReadKey();
