@@ -25,6 +25,7 @@ namespace Capstone
 			while (input != "Q")
 			{
 
+				//making a change so steve can pull updated program
 				switch (input)
 				{
 					case "1": // Display current stock
