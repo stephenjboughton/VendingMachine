@@ -51,6 +51,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ItemsToVend\PurchasableItem.cs" />
+    <Compile Include="SalesReport.cs" />
     <Compile Include="Slot.cs" />
     <Compile Include="Stocker.cs" />
     <Compile Include="TransactionMenu.cs" />

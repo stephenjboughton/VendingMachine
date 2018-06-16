@@ -26,18 +26,7 @@ namespace Capstone
 		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
 		public decimal Balance { get; set; }
 
-		private Dictionary<string, int> SalesReport
-		{
-			get
-			{
-				foreach (var item in Stock)
-				{
-					this.SalesReport[item.Value.Item.Name] = 0;
-				}
-
-				return SalesReport;
-			}
-		}
+		
 
 		public VendingMachine(Dictionary<string, Slot> fullStock)
 		{

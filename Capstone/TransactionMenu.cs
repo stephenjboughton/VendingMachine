@@ -13,6 +13,8 @@ namespace Capstone
 		{
 			while (true)
 			{
+				SalesReport salesReport = new SalesReport();
+
 				Console.WriteLine("-----TE Vending Machine-----");
 				Console.WriteLine("  Powered by Umbrella Corp");
 				Console.WriteLine();
@@ -81,6 +83,7 @@ namespace Capstone
 							Console.WriteLine("Your product is now being dispensed. Thank you!");
 							Console.WriteLine();
 							vendingMachine.DispenseItem(productSelection);
+							salesReport.AddToReport(productSelection);
 							break;
 						}
 					}
@@ -100,7 +103,7 @@ namespace Capstone
 						PurchasableItem item = vendingMachine.PurchasedStock.Dequeue();
 						Console.WriteLine(item.ConsumeMessage());
 					}
-
+					salesReport.WriteReport();
 					Console.WriteLine();
 					Console.WriteLine("> Press any key to continue...");
 					Console.ReadKey();
