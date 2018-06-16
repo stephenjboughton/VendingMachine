@@ -49,28 +49,5 @@ namespace Capstone
 			}
 			return stock;
 		}
-
-		public Dictionary<string, decimal> SalesReport(string path)
-		{
-			Dictionary<string, decimal> sales = new Dictionary<string, decimal>();
-			try
-			{
-				using (StreamReader sr = new StreamReader(path))
-				{
-					while (!sr.EndOfStream)
-					{
-						string[] line = sr.ReadLine().Split('|');
-						
-						sales.Add(line[1], 0.00M);
-						
-					}
-				}
-			}
-			catch (IOException ex)
-			{
-				Console.WriteLine(ex.Message);
-			}
-			return sales;
-		}
 	}
 }
