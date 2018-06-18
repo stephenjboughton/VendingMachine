@@ -51,7 +51,8 @@
     <Compile Include="MakeChangeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DispenseItemTests.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="FeedMoneyTests.cs" />
+    <Compile Include="ValidProductSelectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

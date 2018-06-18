@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="ItemsToVend\CandyItem.cs" />
     <Compile Include="ItemsToVend\ChipItem.cs" />
-    <Compile Include="DrinkItem.cs" />
+    <Compile Include="ItemsToVend\DrinkItem.cs" />
     <Compile Include="ItemsToVend\GumItem.cs" />
     <Compile Include="LogFile.cs" />
     <Compile Include="Program.cs" />

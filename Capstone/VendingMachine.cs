@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Capstone.ItemsToVend;
+using System.IO;
 
 namespace Capstone
 {
 	public class VendingMachine
 	{
-		public Dictionary<string, Slot> Stock { get; }
-		public Slot[] itemSlot
+		private Dictionary<string, Slot> Stock { get; }
+		public Slot[] ItemSlot
 		{
 			get
 			{
@@ -18,15 +19,25 @@ namespace Capstone
 				{
 					return Stock.Values.ToArray();
 				}
-				return itemSlot;
+				return ItemSlot;
 			}
 		}
-		
+
 
 		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
 		public decimal Balance { get; set; }
 
-		
+		/*Dictionary<string, int> ReportInventory //= new Dictionary<string, int>();
+		{
+			get
+			{
+				foreach (var productType in ItemSlot)
+				{
+					ReportInventory[productType.Item.Name] = 0;
+				}
+				return ReportInventory;
+			}
+		}*/
 
 		public VendingMachine(Dictionary<string, Slot> fullStock)
 		{
@@ -43,10 +54,11 @@ namespace Capstone
 
 		public void DispenseItem(string item)
 		{
+			PurchasableItem productToDispense = this.Stock[item].Item;
 			this.PurchasedStock.Enqueue(this.Stock[item].slotStock.Pop());
-			this.Balance -= this.Stock[item].Item.Price;
+			this.Balance -= productToDispense.Price;
 			LogFile logFile = new LogFile();
-			string message = logFile.LogPurchase(Stock[item].Item.Name, item, Stock[item].Item.Price, this.Balance);
+			string message = logFile.LogPurchase(productToDispense.Name, item, productToDispense.Price, this.Balance);
 			logFile.LoggingInfo(message);
 		}
 
@@ -59,7 +71,7 @@ namespace Capstone
 			this.Balance = this.Balance % .10M;
 			int changeN = (int)(this.Balance / .05M);
 
-			int[] change =  new int[] { changeQ, changeD, changeN };
+			int[] change = new int[] { changeQ, changeD, changeN };
 
 			LogFile logFile = new LogFile();
 			string message = logFile.LogGiveChange(startingBalance, this.Balance);
@@ -75,12 +87,22 @@ namespace Capstone
 
 		public bool ProductInStock(string productSelection)
 		{
-			return this.Stock[productSelection].hasStock;
+			return this.Stock[productSelection].HasStock;
 		}
 
 		public bool HasRequiredBalance(string productSelection)
 		{
 			return (this.Stock[productSelection].Item.Price < this.Balance);
 		}
+
+		/*public void SalesReport(PurchasableItem item)
+		{
+			this.ReportInventory[item.Name]++;
+
+			using (StreamWriter sw = new StreamWriter("Report.txt", true))
+			{
+				sw.WriteLine($"{item.Name} {ReportInventory[item.Name]}");
+			}
+		}*/
 	}
 }

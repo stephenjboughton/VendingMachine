@@ -37,7 +37,7 @@ namespace Capstone
 			slotStock.Push(this.Item);
 		}
 
-		public bool hasStock
+		public bool HasStock
 		{
 			get
 			{

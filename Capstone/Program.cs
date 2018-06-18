@@ -94,10 +94,9 @@ namespace Capstone
 			Console.WriteLine("  Powered by Umbrella Corp");
 			Console.WriteLine();
 
-			foreach (var item in vendingMachine.itemSlot)
+			foreach (var item in vendingMachine.ItemSlot)
 			{
-
-				if (item.hasStock)
+				if (item.HasStock)
 				{
 					Console.WriteLine(item.SlotNumber.PadRight(10) + " " + (item.Item.Name).PadRight(20) + " " + (item.ItemsRemaining));
 				}

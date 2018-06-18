@@ -99,6 +99,7 @@ namespace Capstone
 					while (vendingMachine.PurchasedStock.Count > 0)
 					{
 						PurchasableItem item = vendingMachine.PurchasedStock.Dequeue();
+						//vendingMachine.SalesReport(item);
 						Console.WriteLine(item.ConsumeMessage());
 					}
 					Console.WriteLine();
@@ -113,10 +114,10 @@ namespace Capstone
 		private static void DisplayStock(VendingMachine vendingMachine)
 		{
 
-			foreach (var item in vendingMachine.itemSlot)
+			foreach (var item in vendingMachine.ItemSlot)
 			{
 
-				if (item.hasStock)
+				if (item.HasStock)
 				{
 					Console.WriteLine(item.SlotNumber.PadRight(10) + " " + (item.Item.Name).PadRight(20) + " " + (item.Item.Price));
 				}
