@@ -27,22 +27,22 @@ namespace Capstone
 		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
 		public decimal Balance { get; set; }
 
-		/*Dictionary<string, int> ReportInventory //= new Dictionary<string, int>();
-		{
-			get
-			{
-				foreach (var productType in ItemSlot)
-				{
-					ReportInventory[productType.Item.Name] = 0;
-				}
-				return ReportInventory;
-			}
-		}*/
+        Dictionary<string, int> ReportInventory = new Dictionary<string, int>();
+	
 
 		public VendingMachine(Dictionary<string, Slot> fullStock)
 		{
 			this.Stock = fullStock;
+            BuildInitialSalesReport();
 		}
+
+        private void BuildInitialSalesReport()
+        {
+            foreach (var slot in Stock.Keys)
+            {
+                ReportInventory[slot] = 0;
+            }
+        }
 
 		public void FeedMoney(decimal moneyFed)
 		{
