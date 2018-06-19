@@ -91,10 +91,10 @@ namespace Capstone
 					Console.Clear();
 					Console.WriteLine();
 					Console.WriteLine($"> Your change is... ");
-					int[] change = vendingMachine.MakeChange(vendingMachine.Balance);
-					Console.WriteLine($"{change[0]} quarters, " +
-						$"{change[1]} dimes, " +
-						$"and {change[2]} nickels.");
+					Change change = vendingMachine.MakeChange(vendingMachine.Balance);
+					Console.WriteLine($"{change.Quarters} quarters, " +
+						$"{change.Dimes} dimes, " +
+						$"and {change.Nickels} nickels.");
 					Console.WriteLine();
 					while (vendingMachine.PurchasedStock.Count > 0)
 					{

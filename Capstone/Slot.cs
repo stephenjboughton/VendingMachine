@@ -7,49 +7,55 @@ using Capstone.ItemsToVend;
 
 namespace Capstone
 {
-	public class Slot
-	{
-		public Stack<PurchasableItem> slotStock = new Stack<PurchasableItem>();
-		public PurchasableItem Item { get; }
-		public string SlotNumber { get; }
-		public int ItemsRemaining
-		{
-			get
-			{
-				return slotStock.Count;
-			}
-		}
+    public class Slot
+    {
+        private Stack<PurchasableItem> slotStock = new Stack<PurchasableItem>();
+        public PurchasableItem Item { get; }
+        public string SlotNumber { get; }
+        public int ItemsRemaining
+        {
+            get
+            {
+                return slotStock.Count;
+            }
+        }
 
-		public Slot(string slotNumber, PurchasableItem item) 
-		{
-			this.SlotNumber = slotNumber;
-			this.Item = item;
+        public Slot(string slotNumber, PurchasableItem item)
+        {
+            this.SlotNumber = slotNumber;
+            this.Item = item;
 
-			this.FillSlot();
-		}
+            this.FillSlot();
+        }
 
-		private void FillSlot()
-		{
-			slotStock.Push(this.Item);
-			slotStock.Push(this.Item);
-			slotStock.Push(this.Item);
-			slotStock.Push(this.Item);
-			slotStock.Push(this.Item);
-		}
 
-		public bool HasStock
-		{
-			get
-			{
-				if (slotStock.Count > 0)
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-		}
-	}
+        public PurchasableItem GetNextItem()
+        {
+            return slotStock.Pop();
+        }
+
+        private void FillSlot()
+        {            
+            slotStock.Push(this.Item);
+            slotStock.Push(this.Item);
+            slotStock.Push(this.Item);
+            slotStock.Push(this.Item);
+            slotStock.Push(this.Item);
+        }
+
+        public bool HasStock
+        {
+            get
+            {
+                if (slotStock.Count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+    }
 }

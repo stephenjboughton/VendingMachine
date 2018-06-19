@@ -15,7 +15,6 @@ namespace Capstone
 			string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
 
 			Stocker stocker = new Stocker();
-
 			LogFile logFile = new LogFile();
 
 			VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
@@ -73,7 +72,6 @@ namespace Capstone
 				Console.ReadKey();
 				Console.Clear();
 			}
-
 			else
 			{
 				Console.WriteLine();
@@ -144,7 +142,6 @@ namespace Capstone
 					break;
 				}
 			}
-
 			while (!validchoices.Contains(input));
 
 			return input;

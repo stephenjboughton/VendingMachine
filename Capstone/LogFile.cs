@@ -13,7 +13,6 @@ namespace Capstone
 	{
 		public void LoggingInfo(string message)
 		{
-
 			using (StreamWriter sw = new StreamWriter("Log.txt", true))
 			{
 				sw.WriteLine(System.DateTime.Now.ToShortDateString() + " " + System.DateTime.Now.ToString("hh:mm:ss tt") + " " + message);

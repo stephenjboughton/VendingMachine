@@ -54,15 +54,16 @@ namespace Capstone
 
 		public void DispenseItem(string item)
 		{
-			PurchasableItem productToDispense = this.Stock[item].Item;
-			this.PurchasedStock.Enqueue(this.Stock[item].slotStock.Pop());
+			PurchasableItem productToDispense = this.Stock[item].GetNextItem();
+
+            this.PurchasedStock.Enqueue(productToDispense);
 			this.Balance -= productToDispense.Price;
 			LogFile logFile = new LogFile();
 			string message = logFile.LogPurchase(productToDispense.Name, item, productToDispense.Price, this.Balance);
 			logFile.LoggingInfo(message);
 		}
 
-		public int[] MakeChange(decimal Balance)
+		public Change MakeChange(decimal Balance)
 		{
 			decimal startingBalance = this.Balance;
 			int changeQ = (int)(this.Balance / .25M);
@@ -70,8 +71,10 @@ namespace Capstone
 			int changeD = (int)(this.Balance / .10M);
 			this.Balance = this.Balance % .10M;
 			int changeN = (int)(this.Balance / .05M);
+            this.Balance = this.Balance % .05M;
 
-			int[] change = new int[] { changeQ, changeD, changeN };
+            //int[] change = new int[] { changeQ, changeD, changeN };
+            Change change = new Change(changeQ, changeD, changeN);
 
 			LogFile logFile = new LogFile();
 			string message = logFile.LogGiveChange(startingBalance, this.Balance);
