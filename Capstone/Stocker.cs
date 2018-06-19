@@ -13,7 +13,8 @@ namespace Capstone
 		public Dictionary<string, Slot> ReturnStock(string path)
 		{
 			Dictionary<string, Slot> stock = new Dictionary<string, Slot>();
-			try
+
+            try
 			{
 				using (StreamReader sr = new StreamReader(path))
 				{
@@ -47,6 +48,7 @@ namespace Capstone
 			{
 				Console.WriteLine(ex.Message);
 			}
+
 			return stock;
 		}
 	}
