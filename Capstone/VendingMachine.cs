@@ -27,22 +27,22 @@ namespace Capstone
 		public Queue<PurchasableItem> PurchasedStock { get; private set; } = new Queue<PurchasableItem>();
 		public decimal Balance { get; set; }
 
-        Dictionary<string, int> ReportInventory = new Dictionary<string, int>();
-	
+		Dictionary<string, int> ReportInventory = new Dictionary<string, int>();
+
 
 		public VendingMachine(Dictionary<string, Slot> fullStock)
 		{
 			this.Stock = fullStock;
-            BuildInitialSalesReport();
+			BuildInitialSalesReport();
 		}
 
-        private void BuildInitialSalesReport()
-        {
-            foreach (var slot in Stock.Keys)
-            {
-                ReportInventory[slot] = 0;
-            }
-        }
+		private void BuildInitialSalesReport()
+		{
+			foreach (var slot in Stock.Keys)
+			{
+				ReportInventory[slot] = 0;
+			}
+		}
 
 		public void FeedMoney(decimal moneyFed)
 		{
@@ -56,7 +56,7 @@ namespace Capstone
 		{
 			PurchasableItem productToDispense = this.Stock[item].GetNextItem();
 
-            this.PurchasedStock.Enqueue(productToDispense);
+			this.PurchasedStock.Enqueue(productToDispense);
 			this.Balance -= productToDispense.Price;
 			LogFile logFile = new LogFile();
 			string message = logFile.LogPurchase(productToDispense.Name, item, productToDispense.Price, this.Balance);
@@ -71,15 +71,14 @@ namespace Capstone
 			int changeD = (int)(this.Balance / .10M);
 			this.Balance = this.Balance % .10M;
 			int changeN = (int)(this.Balance / .05M);
-            this.Balance = this.Balance % .05M;
+			this.Balance = this.Balance % .05M;
 
-            //int[] change = new int[] { changeQ, changeD, changeN };
-            Change change = new Change(changeQ, changeD, changeN);
+			Change change = new Change(changeQ, changeD, changeN);
 
 			LogFile logFile = new LogFile();
 			string message = logFile.LogGiveChange(startingBalance, this.Balance);
 			logFile.LoggingInfo(message);
-
+			
 			return change;
 		}
 
@@ -97,15 +96,5 @@ namespace Capstone
 		{
 			return (this.Stock[productSelection].Item.Price < this.Balance);
 		}
-
-		/*public void SalesReport(PurchasableItem item)
-		{
-			this.ReportInventory[item.Name]++;
-
-			using (StreamWriter sw = new StreamWriter("Report.txt", true))
-			{
-				sw.WriteLine($"{item.Name} {ReportInventory[item.Name]}");
-			}
-		}*/
 	}
 }

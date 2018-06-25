@@ -1,12 +1,26 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.IO;
+using Capstone;
+using Capstone.ItemsToVend;
 
 namespace Capstone.Tests
 {
 	[TestClass]
 	public class FeedMoneyTests
 	{
+		Dictionary<string, Slot> initialStock = new Dictionary<string, Slot>()
+		{
+			{ "A1", new Slot("A1", new GumItem("Test GUM", 1.0M)) }
+		};
+		
+		[TestInitialize]
+		public void Initialize()
+		{
+			VendingMachine vendingMachine = new VendingMachine(initialStock);
+		}
+
 		[TestClass]
 		public class FeedMoneyMethodTests
 		{
@@ -17,10 +31,6 @@ namespace Capstone.Tests
 			[DataRow(10.00, 10.00)]
 			public void CheckToSeeIfFeedMoneyProducesCorrectBalance(double money, double expectedBalance)
 			{
-				string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
-				Stocker stocker = new Stocker();
-				VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
-
 				vendingMachine.FeedMoney((decimal)money);
 				double balance = (double)vendingMachine.Balance;
 
@@ -30,9 +40,7 @@ namespace Capstone.Tests
 			[TestMethod]
 			public void CheckToSeeIfMultipleFeedMoneyCallsProducesCorrectBalance()
 			{
-				string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
-				Stocker stocker = new Stocker();
-				VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
+				VendingMachine vendingMachine = new VendingMachine(initialStock);
 
 				vendingMachine.FeedMoney(5.00M);
 				vendingMachine.FeedMoney(2.00M);
