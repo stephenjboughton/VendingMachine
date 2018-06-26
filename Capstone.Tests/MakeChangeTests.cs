@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Capstone;
 using Capstone.ItemsToVend;
@@ -9,23 +10,22 @@ namespace Capstone.Tests
 	[TestClass]
 	public class MakeChangeTests
 	{
-		[TestClass]
-		public class ChangeReturnTests
+		Dictionary<string, Slot> initialStock = new Dictionary<string, Slot>()
 		{
-            [DataTestMethod]
+			{ "A1", new Slot("A1", new GumItem("Test GUM", 1.0M)) }
+		};
+
+		[DataTestMethod]
             [DataRow(6.35, 25, 1, 0)]
             [DataRow(1.95, 7, 2, 0)]
             [DataRow(12.55, 50, 0, 1 )]
             public void Check_To_See_If_Change_Return_Works(double balance, int expectedQuarters, int expectedDimes, int expectedNickels)
             {
-                string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
-                Stocker stocker = new Stocker();
-                VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
+                VendingMachine vendingMachine = new VendingMachine(initialStock);
                 vendingMachine.Balance = (decimal)balance;
 
                 Change change = vendingMachine.MakeChange(vendingMachine.Balance);
 
-                //CollectionAssert.AreEqual(changeExpected, change);
                 Assert.AreEqual(expectedQuarters, change.Quarters);
                 Assert.AreEqual(expectedDimes, change.Dimes);
                 Assert.AreEqual(expectedNickels, change.Nickels);
@@ -34,9 +34,7 @@ namespace Capstone.Tests
             [TestMethod]
 			public void Check_To_See_If_Change_Return_Leaves_Zero_Balance()
 			{
-				string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
-				Stocker stocker = new Stocker();
-				VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
+				VendingMachine vendingMachine = new VendingMachine(initialStock);
 				vendingMachine.Balance = 5.85M;
 
 				vendingMachine.MakeChange(vendingMachine.Balance);
@@ -44,6 +42,5 @@ namespace Capstone.Tests
 
 				Assert.AreEqual(0.00M, balance);
 			}
-		}
 	}
 }

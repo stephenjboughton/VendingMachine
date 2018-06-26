@@ -1,12 +1,18 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
+using System.Collections.Generic;
+using Capstone.ItemsToVend;
 
 namespace Capstone.Tests
 {
 	[TestClass]
 	public class HasRequiredBalanceTest
 	{
+		Dictionary<string, Slot> initialStock = new Dictionary<string, Slot>()
+		{
+			{ "A1", new Slot("A1", new GumItem("Test GUM", 1.0M)) }
+		};
+
 		[DataTestMethod]
 		[DataRow("A1", false)]
 		[DataRow("A3", false)]
@@ -14,9 +20,7 @@ namespace Capstone.Tests
 		[DataRow("D2", true)]
 		public void CheckToSeeIfHasRequiredBalance(string selection, bool expectedResult)
 		{
-			string path = Path.Combine(Environment.CurrentDirectory, "vendingmachine.txt");
-			Stocker stocker = new Stocker();
-			VendingMachine vendingMachine = new VendingMachine(stocker.ReturnStock(path));
+			VendingMachine vendingMachine = new VendingMachine(initialStock);
 
 			vendingMachine.FeedMoney(2);
 			bool result = vendingMachine.HasRequiredBalance(selection);

@@ -14,16 +14,7 @@ namespace Capstone.Tests
 		{
 			{ "A1", new Slot("A1", new GumItem("Test GUM", 1.0M)) }
 		};
-		
-		[TestInitialize]
-		public void Initialize()
-		{
-			VendingMachine vendingMachine = new VendingMachine(initialStock);
-		}
 
-		[TestClass]
-		public class FeedMoneyMethodTests
-		{
 			[DataTestMethod]
 			[DataRow(1.00, 1.00)]
 			[DataRow(2.00, 2.00)]
@@ -31,6 +22,7 @@ namespace Capstone.Tests
 			[DataRow(10.00, 10.00)]
 			public void CheckToSeeIfFeedMoneyProducesCorrectBalance(double money, double expectedBalance)
 			{
+				VendingMachine vendingMachine = new VendingMachine(initialStock);
 				vendingMachine.FeedMoney((decimal)money);
 				double balance = (double)vendingMachine.Balance;
 
@@ -49,6 +41,5 @@ namespace Capstone.Tests
 
 				Assert.AreEqual(17.00M, balance);
 			}
-		}
 	}
 }
