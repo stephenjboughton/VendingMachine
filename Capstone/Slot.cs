@@ -28,7 +28,6 @@ namespace Capstone
             this.FillSlot();
         }
 
-
         public PurchasableItem GetNextItem()
         {
             return slotStock.Pop();

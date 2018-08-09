@@ -52,6 +52,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DispenseItemTests.cs" />
     <Compile Include="FeedMoneyTests.cs" />
+    <Compile Include="ProductInStockTest.cs" />
+    <Compile Include="HasRequiredBalanceTest.cs" />
     <Compile Include="ValidProductSelectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
